@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Product Filter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .product {
+      padding: 15px;
+      background: #f1f1f1;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Product List</h2>
+
+    <!-- Dropdown Filter -->
+    <select id="filterDropdown">
+      <option value="all">All</option>
+      <option value="shoes">Shoes</option>
+      <option value="shirts">Shirts</option>
+      <option value="gadgets">Gadgets</option>
+    </select>
+
+    <!-- Product List -->
+    <div class="products">
+      <div class="product" data-category="shoes">Nike Air Max</div>
+      <div class="product" data-category="shoes">Adidas Ultraboost</div>
+      <div class="product" data-category="shirts">Polo T-shirt</div>
+      <div class="product" data-category="shirts">Formal Shirt</div>
+      <div class="product" data-category="gadgets">Smartphone</div>
+      <div class="product" data-category="gadgets">Wireless Earbuds</div>
+    </div>
+  </div>
+
+  <script>
+    const dropdown = document.getElementById('filterDropdown');
+    const products = document.querySelectorAll('.product');
+
+    dropdown.addEventListener('change', function() {
+      const selected = this.value;
+
+      products.forEach(product => {
+        const category = product.getAttribute('data-category');
+        if (selected === "all" || category === selected) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
