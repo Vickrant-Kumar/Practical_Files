@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Person Class Hierarchy</title>
+</head>
+<body>
+  <script>
+    // Base Class
+    class Person {
+      constructor(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      displayInfo() {
+        return `Name: ${this.name}, Age: ${this.age}`;
+      }
+    }
+
+    // Subclass Student
+    class Student extends Person {
+      constructor(name, age, course) {
+        super(name, age); // call parent constructor
+        this.course = course;
+      }
+
+      // Overriding method
+      displayInfo() {
+        return `${super.displayInfo()}, Course: ${this.course}`;
+      }
+    }
+
+    // Subclass Teacher
+    class Teacher extends Person {
+      constructor(name, age, subject) {
+        super(name, age);
+        this.subject = subject;
+      }
+
+      // Overriding method
+      displayInfo() {
+        return `${super.displayInfo()}, Subject: ${this.subject}`;
+      }
+    }
+
+    // Create instances
+    const student1 = new Student("Alice", 20, "Computer Science");
+    const teacher1 = new Teacher("Mr. Smith", 40, "Mathematics");
+
+    // Demonstrating method calls
+    console.log(student1.displayInfo());
+    console.log(teacher1.displayInfo());
+
+    // Also print on webpage
+    document.body.innerHTML += `<p>${student1.displayInfo()}</p>`;
+    document.body.innerHTML += `<p>${teacher1.displayInfo()}</p>`;
+  </script>
+</body>
+</html>

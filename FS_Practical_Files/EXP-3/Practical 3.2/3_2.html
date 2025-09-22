@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Library Management</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f9f9f9;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      input {
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      button {
+        padding: 8px 12px;
+        margin-left: 5px;
+        border: none;
+        border-radius: 5px;
+        background: #007bff;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        padding: 8px;
+        margin: 5px 0;
+        background: #f1f1f1;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .remove-btn {
+        background: red;
+        font-size: 12px;
+        padding: 5px 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function LibraryApp() {
+        const [books, setBooks] = React.useState([
+          { title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
+          { title: "1984", author: "George Orwell" },
+          { title: "To Kill a Mockingbird", author: "Harper Lee" },
+        ]);
+        const [search, setSearch] = React.useState("");
+        const [newTitle, setNewTitle] = React.useState("");
+        const [newAuthor, setNewAuthor] = React.useState("");
+
+        // Filter books based on search text
+        const filteredBooks = books.filter(
+          (book) =>
+            book.title.toLowerCase().includes(search.toLowerCase()) ||
+            book.author.toLowerCase().includes(search.toLowerCase())
+        );
+
+        // Add a new book
+        const addBook = () => {
+          if (newTitle.trim() && newAuthor.trim()) {
+            setBooks([...books, { title: newTitle, author: newAuthor }]);
+            setNewTitle("");
+            setNewAuthor("");
+          }
+        };
+
+        // Remove a book
+        const removeBook = (index) => {
+          const updatedBooks = books.filter((_, i) => i !== index);
+          setBooks(updatedBooks);
+        };
+
+        return (
+          <div className="container">
+            <h2>📚 Library Management</h2>
+
+            {/* Search Box */}
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
+            {/* Add Book Form */}
+            <div>
+              <input
+                type="text"
+                placeholder="Book Title"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Author"
+                value={newAuthor}
+                onChange={(e) => setNewAuthor(e.target.value)}
+              />
+              <button onClick={addBook}>Add Book</button>
+            </div>
+
+            {/* Book List */}
+            <ul>
+              {filteredBooks.map((book, index) => (
+                <li key={index}>
+                  <span>
+                    <b>{book.title}</b> by {book.author}
+                  </span>
+                  <button
+                    className="remove-btn"
+                    onClick={() => removeBook(index)}
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<LibraryApp />);
+    </script>
+  </body>
+</html>

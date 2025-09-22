@@ -1,0 +1,29 @@
+import React from "react";
+
+// Reusable ProductCard component
+function ProductCard({ name, price, inStock }) {
+  return (
+    <div className="max-w-sm rounded-2xl shadow-md p-4 border border-gray-200 m-4">
+      <h2 className="text-xl font-semibold">{name}</h2>
+      <p className="text-gray-700">Price: ₹{price}</p>
+      <p
+        className={`font-medium ${
+          inStock ? "text-green-600" : "text-red-600"
+        }`}
+      >
+        {inStock ? "In Stock" : "Out of Stock"}
+      </p>
+    </div>
+  );
+}
+
+// Example usage
+export default function App() {
+  return (
+    <div className="flex flex-wrap justify-center">
+      <ProductCard name="Laptop" price={55000} inStock={true} />
+      <ProductCard name="Headphones" price={2500} inStock={false} />
+      <ProductCard name="Smartphone" price={30000} inStock={true} />
+    </div>
+  );
+}
