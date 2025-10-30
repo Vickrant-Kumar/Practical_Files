@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Login Form with useState</title>
+
+    <!-- React and Babel CDN Links -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        background-color: #f9f9f9;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        width: 320px;
+        margin: 80px auto;
+        padding: 20px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        background-color: white;
+        text-align: center;
+      }
+
+      input {
+        width: 90%;
+        margin: 8px 0;
+        padding: 8px;
+        font-size: 15px;
+      }
+
+      button {
+        padding: 8px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      p {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- React Code -->
+    <script type="text/babel">
+      function LoginForm() {
+        const [username, setUsername] = React.useState("");
+        const [password, setPassword] = React.useState("");
+        const [message, setMessage] = React.useState("");
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+
+          if (username.trim() === "" || password.trim() === "") {
+            setMessage("⚠️ Please fill in both fields!");
+          } else {
+            console.log("Username:", username);
+            console.log("Password:", password);
+            setMessage("✅ Login Successful! Check the console.");
+          }
+        };
+
+        return (
+          <div className="container">
+            <h2>Login Form</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Enter Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <br />
+              <input
+                type="password"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <br />
+              <button type="submit">Login</button>
+            </form>
+            <p>{message}</p>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<LoginForm />);
+    </script>
+  </body>
+</html>
